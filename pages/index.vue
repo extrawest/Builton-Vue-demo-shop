@@ -1,6 +1,5 @@
 <template>
   <div>
-    Hello
   </div>
 </template>
 
@@ -11,4 +10,4 @@
     export default class HomePage extends Vue {}
 </script>
 
-<style lang="less"scoped></style>
+<style lang="less" scoped></style>

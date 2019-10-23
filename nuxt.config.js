@@ -12,7 +12,7 @@ export default {
     ]
   },
   loading: { color: '#fff', height: '4px' },
-  css: ['~/assets/transitions.css'],
+  css: [{src: '~/assets/main.less', lang: 'less'}],
   plugins: [{ src: '~/plugins/builtOn.js', mode: 'server' }],
   buildModules: ['@nuxt/typescript-build']
 }
