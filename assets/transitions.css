@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=Patua+One&display=swap');
+
+.page-enter-active {
+  transition: opacity 0.5s ease-out;
+}
+
+.page-leave-active {
+  transition: opacity 0.5s ease-in;
+}
+
+.page-enter,
+.page-leave-active {
+  opacity: 0;
+}
+
+
+.layout-enter-active {
+  transition: opacity 0.5s ease-out;
+}
+
+.layout-leave-active {
+  transition: opacity 0.5s ease-in;
+}
+
+.layout-enter,
+.layout-leave-active {
+  opacity: 0;
+}
+
