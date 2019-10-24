@@ -24,26 +24,31 @@
     display: flex;
     flex-direction: column;
     min-height: 460px;
+    height: 100%;
     background-color: @PRIMARY_BACKGROUND;
     padding: 0 64px;
     margin: 32px 0 64px;
     z-index: 2;
     position: relative;
 
-    & > .carousel-container {
-      width: 100%;
+    & .carousel {
+      flex-grow: 1;
+      background-image:
+        repeating-linear-gradient(
+          45deg,
+          rgba(251, 107, 64, 0.1),
+          rgba(251, 107, 64, 0.1) 10px,
+          transparent 10px,
+          transparent 20px,
+          rgba(170, 154, 240, 0.2) 20px,
+          rgba(170, 154, 240, 0.2) 30px,
+          transparent 30px,
+          transparent 40px
+        );
     }
   }
 
   .section-header-container {
-    &.main {
-      font-size: 1.6rem;
-      margin: 12px 0 24px 0;
-      padding: 8px 16px;
-      letter-spacing: 1px;
-      border-bottom: 4px solid @SECONDARY_BORDER_COLOR;
-    }
-
     &.sub {
       border-bottom: 2px solid @PRIMARY_BORDER_COLOR;
       padding: 12px 6px;
