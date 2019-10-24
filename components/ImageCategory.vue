@@ -1,75 +1,72 @@
 <template>
-  <div class="show-category">
-    <div class="category-container" :class="[`${category}-container`]">
-      <div class="category-title" :class="[`${category}-title`]">
-        {{ category.toUpperCase() }}
+  <div>
+    <div v-if="category" class="category-container" :class="[`${category.name}-container`]">
+      <div class="category-title" :class="[`${category.name}-title`]">
+        {{ category.name }}
       </div>
+      <AppSpinner v-if="!loaded"/>
       <img class="category-image"
-           src="https://inteng-storage.s3.amazonaws.com/images/NOVEMBER/sizes/color-2174065_1280_resize_md.png"/>
+           :class="{'loaded': loaded}"
+           @load="onLoad"
+           :src="category.image['public_url']"
+           :alt="`${category.name} image`"/>
     </div>
   </div>
 </template>
 
 <script lang="ts">
     import {Component, Prop, Vue} from 'vue-property-decorator'
+    import AppSpinner from '~/components/AppSpinner.vue'
 
-    @Component({})
+    @Component({
+        components: {
+            AppSpinner
+        }
+    })
     export default class ImageCategory extends Vue {
-        @Prop() category!: string
+        loaded: boolean = false;
+        @Prop() category!: any;
+
+        onLoad(): void {
+            this.loaded = true
+        }
     }
 </script>
 
 <style lang="less" scoped>
   @import '../assets/variables';
 
-  .show-category {
-    animation: animate-show-category 450ms forwards;
-    opacity: 0;
-    animation-delay: 1s;
-  }
-
-  .hide-category {
-    display: none;
-  }
-
-  @keyframes animate-show-category {
-    0% {
-      opacity: 0;
-      display: block;
-    }
-    100% {
-      opacity: 1;
-    }
-  }
-
   .category-container {
     height: auto;
     overflow: hidden;
     cursor: pointer;
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    &.adidas-container {
+    &.Adidas-container {
       width: 25vw;
     }
 
-    &.nike-container {
+    &.Nike-container {
       width: 35vw;
     }
 
-    &.puma-container {
+    &.Puma-container {
       width: 35vw;
     }
 
     @media all and (max-width: 720px) {
-      &.adidas-container {
+      &.Adidas-container {
         width: 90vw;
       }
 
-      &.nike-container {
+      &.Nike-container {
         width: 90vw;
       }
 
-      &.puma-container {
+      &.Puma-container {
         width: 90vw;
       }
     }
@@ -83,17 +80,17 @@
     letter-spacing: 1px;
     z-index: 1;
 
-    &.adidas-title {
+    &.Adidas-title {
       left: 16px;
       top: 16px;
     }
 
-    &.nike-title {
+    &.Nike-title {
       right: 16px;
       top: 16px;
     }
 
-    &.puma-title {
+    &.Puma-title {
       left: 16px;
       bottom: 16px;
     }
@@ -101,6 +98,16 @@
 
   .category-image {
     width: 100%;
-    transition: all 150ms;
+    opacity: 0;
+    transition: 500ms;
+    transform: scale(1) translateZ(1px);
+
+    &.loaded {
+      opacity: 1;
+    }
+
+    &:hover {
+      transform: scale(1.04) translateZ(1px);
+    }
   }
 </style>

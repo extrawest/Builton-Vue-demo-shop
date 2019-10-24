@@ -4,11 +4,11 @@
       <div class="background-left-fragment"></div>
 
       <div class="left-category-wrapper">
-        <ImageCategory category="adidas" />
+        <ImageCategory :category="categories[0]"/>
       </div>
       <div class="inner-wrapper">
-        <ImageCategory category="nike" />
-        <ImageCategory category="puma" />
+        <ImageCategory :category="categories[1]"/>
+        <ImageCategory :category="categories[2]"/>
       </div>
     </div>
     <MostPopular/>
@@ -24,9 +24,16 @@
         components: {
             ImageCategory,
             MostPopular
+        },
+
+        async fetch({store}) {
+            await store.dispatch('fetchCategories')
         }
     })
     export default class HomePage extends Vue {
+        get categories(): any[] {
+            return this.$store.getters['getCategories'];
+        }
     }
 </script>
 
