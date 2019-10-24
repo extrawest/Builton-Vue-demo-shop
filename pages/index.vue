@@ -1,24 +1,29 @@
 <template>
-  <div class="home-wrapper">
-    <div class="background-left-fragment"></div>
+  <div>
+    <div class="home-wrapper">
+      <div class="background-left-fragment"></div>
 
-    <div class="left-category-wrapper">
-      <ImageCategory category="adidas" />
+      <div class="left-category-wrapper">
+        <ImageCategory category="adidas" />
+      </div>
+      <div class="inner-wrapper">
+        <ImageCategory category="nike" />
+        <ImageCategory category="puma" />
+      </div>
     </div>
-    <div class="inner-wrapper">
-      <ImageCategory category="nike" />
-      <ImageCategory category="puma" />
-    </div>
+    <MostPopular/>
   </div>
 </template>
 
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator'
     import ImageCategory from '~/components/ImageCategory.vue'
+    import MostPopular from '~/components/MostPopular.vue'
 
     @Component({
         components: {
-            ImageCategory
+            ImageCategory,
+            MostPopular
         }
     })
     export default class HomePage extends Vue {
