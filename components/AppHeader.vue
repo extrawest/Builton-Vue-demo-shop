@@ -1,7 +1,7 @@
 <template>
   <div class="header-container">
     <div class="header-logo-container">
-    <BuiltOnLogo />
+    <BuiltOnLogo @click.native="$router.push('/')" />
   </div>
   <AppMenu />
   </div>

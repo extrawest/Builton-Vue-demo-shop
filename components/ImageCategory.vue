@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="$router.push(`collection/${category.name.toLowerCase()}`)">
     <div v-if="category" class="category-container" :class="[`${category.name}-container`]">
       <div class="category-title" :class="[`${category.name}-title`]">
         {{ category.name }}
