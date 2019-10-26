@@ -28,7 +28,11 @@
       <path style="fill: #AA9AF0" d="M63.62,63.73C28.54,63.73,0,92.27,0,127.35h34.63c0-15.99,13.01-28.99,28.99-28.99s28.99,13.01,28.99,28.99
       h34.63C127.25,92.27,98.7,63.73,63.62,63.73z"/>
     </svg>
-    <span class="demo-store-title">Demo store</span>
+    <div class="demo-store-title">
+      <span><span class="Builton gradient-text">Builton</span> <span class="Extrawest">Extrawest</span></span>
+
+      <span><span class="VueJS">VueJS</span> <span class="demo">Demo</span> <span>Store</span></span>
+    </div>
   </div>
 </template>
 
@@ -42,17 +46,47 @@
 
 <style lang="less" scoped>
   .top-header-title-container {
-    color: rgb(127, 127, 127);
-    text-transform: uppercase;
-    font-size: 0.72rem;
     display: flex;
     flex-direction: row;
     align-items: flex-end;
 
     .demo-store-title {
+      display: flex;
+      flex-direction: column;
       margin-left: 12px;
-      margin-bottom: 4px;
+      color: rgb(127, 127, 127);
+      text-transform: uppercase;
+      font-size: 0.75rem;
+    }
+
+    span {
+      transform: scaleY(1.3);
+    }
+
+    .Builton, .Extrawest {
+      font-weight: bold;
+      color: #836de9;
+      display: inline-block;
+      margin-bottom: 6px;
+    }
+
+    .Builton {
+      background: linear-gradient(#AA9AF0, #F66B40);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: #F66B40;
+    }
+
+    .Extrawest {
+      color: #facc29;
+    }
+
+    .VueJS {
+      color: #35976b;
+    }
+
+    .demo {
+      padding: 0 3px;
     }
   }
-
 </style>

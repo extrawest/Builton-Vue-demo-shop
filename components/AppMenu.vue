@@ -1,33 +1,17 @@
 <template>
   <div class="main-menu-container">
     <div class="top-header-menu-container">
-      <a
-        class="header-box-hyperlink"
-        href="https://builton.dev"
-        target="_blank"
-      >
-        <span>Website</span>
+      <a class="header-box-hyperlink" href="#">
+        <span>-</span>
       </a>
-      <a
-        class="header-box-hyperlink"
-        href="https://docs.builton.dev"
-        target="_blank"
-      >
-        <span>Docs</span>
+      <a class="header-box-hyperlink" href="#">
+        <span>-</span>
       </a>
-      <a
-        class="header-box-hyperlink"
-        href="https://dashboard.builton.dev/"
-        target="_blank"
-      >
-        <span>Dashboard</span>
+      <a class="header-box-hyperlink" href="#">
+        <span>-</span>
       </a>
-      <a
-        class="header-box-hyperlink"
-        href="https://github.com/BuiltonDev/builton-demo-store"
-        target="_blank"
-      >
-        <span>Github</span>
+      <a class="header-box-hyperlink" href="#">
+        <span>-</span>
       </a>
     </div>
   </div>

@@ -3,6 +3,7 @@
     :disabled="false"
     :type='type'
     :class='className'
+    @click="$emit('click')"
   >
     <AppSpinner v-if="loading"/>
     <span v-else>{{ title }}</span>
