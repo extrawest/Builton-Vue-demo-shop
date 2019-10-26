@@ -7,27 +7,16 @@
         </div>
         <div class="home-footer-col-content">
           <div>
-            <a href="https://builton.dev" target="_blank">
-              <span>Website</span>
-            </a>
+            <a><span>Link</span></a>
           </div>
           <div>
-            <a href="https://docs.builton.dev" target="_blank">
-              <span>Docs</span>
-            </a>
+            <a><span>Link</span></a>
           </div>
           <div>
-            <a href="https://dashboard.builton.dev/" target="_blank">
-              <span>Dashboard</span>
-            </a>
+            <a><span>Link</span></a>
           </div>
           <div>
-            <a
-              href="https://github.com/BuiltonDev/builton-demo-store"
-              target="_blank"
-            >
-              <span>Github</span>
-            </a>
+            <a href="#"><span>Link</span></a>
           </div>
         </div>
       </div>
@@ -38,7 +27,7 @@
         <div class="home-footer-col-content">
           <button>
             <span>
-              <span>Sign up/in</span>
+<!--              <span>Sign up/in</span>-->
             </span>
           </button>
         </div>
