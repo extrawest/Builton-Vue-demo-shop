@@ -1,5 +1,5 @@
 <template>
-  <div class="product-container" @click="$router.push('/')">
+  <div class="product-container" @click="$router.push(`/product/${product.id}`)">
     <div v-if="product['discount'] > 0" class="product-discount-container">- {{ product['discount'] * 100 }}} %</div>
 
     <img class="category-image"

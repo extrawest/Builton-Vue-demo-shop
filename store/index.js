@@ -11,7 +11,7 @@ export function state() {
 export const getters = {
   getCategories: (state) => state.categories,
   getProducts: (state) => state.rawProducts.current,
-  // getProduct: (state) => state.product,
+  getProduct: (state) => state.product,
   getProductsTotalCount: (state) => state.rawProducts.paginationTotal
 };
 
@@ -28,59 +28,37 @@ export const mutations = {
 };
 
 export const actions = {
-  async fetchCategories({ commit }) {
-    // const categories = await builtOn.products.get({
-    //   urlParams: {
-    //     expand: 'image',
-    //     tags: 'category'
-    //   }
-    // });
-    //
-    // commit('SET_CATEGORIES', categories.current)
-    commit('SET_CATEGORIES', [])
+  async fetchCategories({commit}) {
+    const categories = await builtOn.products.get({
+      urlParams: {expand: 'image', tags: 'category'}
+    });
+
+    commit('SET_CATEGORIES', categories.current)
   },
 
-  async fetchProducts({ commit }, slug) {
-    // const products = await builtOn.products.get({
-    //   size: 6,
-    //   urlParams: {
-    //     expand: 'image',
-    //     tags: slug
-    //   }
-    // });
+  async fetchProducts({commit}, slug) {
+    const products = await builtOn.products.get({
+      size: 6,
+      urlParams: {
+        expand: 'image',
+        tags: slug
+      }
+    });
 
-    // commit('SET_PRODUCTS', products.current)
-    commit('SET_PRODUCTS', [])
+    commit('SET_RAW_PRODUCTS', products)
   },
 
-  async fetchNextPage({ commit, state }) {
+  async fetchNextPage({commit, state}) {
     const products = await state.rawProducts.next();
 
     commit('SET_RAW_PRODUCTS', products)
   },
 
-  // async fetchProducts({ commit }, slug) {
-  //   const { current, paginationTotal, next } = await builtOn.products.get({
-  //     size: 2,
-  //     urlParams: {
-  //       expand: 'image',
-  //       tags: slug
-  //     }
-  //   });
-  //
-  //   console.log(next)
-  //
-  //   commit('SET_PRODUCTS', {current, paginationTotal})
-  // },
+  async fetchProduct({commit}, id) {
+    const product = await builtOn.products.get(id, {
+      urlParams: {expand: 'image'}
+    });
 
-  async fetchProduct({ commit }, id) {
-    // const product = await builtOn.products.get(id, {
-    //   urlParams: {
-    //     expand: '_sub_products, image'
-    //   }
-    // });
-
-    // commit('SET_PRODUCT', product)
-    commit('SET_PRODUCT', {})
+    commit('SET_PRODUCT', product)
   }
 };

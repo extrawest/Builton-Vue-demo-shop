@@ -2,16 +2,16 @@
   <div class="main-menu-container">
     <div class="top-header-menu-container">
       <a class="header-box-hyperlink" href="#">
-        <span>-</span>
+        <span>LINK</span>
       </a>
       <a class="header-box-hyperlink" href="#">
-        <span>-</span>
+        <span>LINK</span>
       </a>
       <a class="header-box-hyperlink" href="#">
-        <span>-</span>
+        <span>LINK</span>
       </a>
       <a class="header-box-hyperlink" href="#">
-        <span>-</span>
+        <span>LINK</span>
       </a>
     </div>
   </div>

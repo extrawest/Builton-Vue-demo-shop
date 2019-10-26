@@ -1,12 +1,10 @@
 <template>
   <div>
-<!--    <ProductListHeader />-->
     <div class="product-list-grid">
       <ProductCard v-for="product in products"
                    :key="product.id"
                    :product="product" />
     </div>
-<!--    <NoResults />-->
     <div v-if="hasNextPage" class="product-list-load-more-container">
       <AppButton @click="$store.dispatch('fetchNextPage')" title="Load more" />
     </div>
@@ -33,7 +31,8 @@
             return this.$store.getters.getProducts
         }
         get hasNextPage(): boolean {
-            return this.$store.getters.getProductsTotalCount > this.products.length
+            // return this.$store.getters.getProductsTotalCount > this.products.length
+            return false
         }
     }
 </script>
