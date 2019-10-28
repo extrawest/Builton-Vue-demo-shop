@@ -28,17 +28,24 @@
             Article id: <span>{{product['human_id'] }}</span>
           </div>
         </div>
-
+        <div class="add-to-cart-button-container">
+          <AppButton @click.native='addToBag' title="Add to Bag"/>
+        </div>
       </div>
     </div>
+
+    <AppNotify ref="notify" />
   </div>
 </template>
 
 <script lang="ts">
     import {Component, Vue} from 'vue-property-decorator'
+    import AppButton from "~/components/AppButton.vue";
+    import AppNotify from "~/components/AppNotify.vue";
 
     @Component({
         name: 'ProductPage',
+        components: {AppButton, AppNotify},
         async fetch({store, params}) {
             await store.dispatch('fetchProduct', params.id)
         }
@@ -46,6 +53,12 @@
     export default class ProductPage extends Vue {
         get product(): any[] {
             return this.$store.getters.getProduct
+        }
+
+        addToBag(e: any): void {
+            (this.$refs.notify as any).openNotify({
+                message: `${e.target.tagName} successfully added to your bag`
+            })
         }
     }
 </script>
