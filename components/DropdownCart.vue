@@ -21,7 +21,7 @@
     <div class="header-checkout-container">
       <div v-if="!cart.length" class="empty-bag-container">Cart is empty</div>
       <div v-if="cart.length" class="header-checkout-container">
-        <AppButton @click="$router.push('/checkout/bag')" title="Proceed to checkout"/>
+        <AppButton disabled @click="$router.push('/checkout/bag')" title="Proceed to checkout"/>
 
         <div class="header-bag-amount">
           {{totalPrice}} EUR

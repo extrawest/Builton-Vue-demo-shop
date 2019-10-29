@@ -39,7 +39,14 @@
 <script lang="ts">
     import {Component, Vue} from "vue-property-decorator";
 
-    @Component({})
+    @Component({
+        // render: function (createElement) {
+        //     return createElement('h1', this.$options.name)
+        // }
+        created() {
+            console.log(this.$el)
+        }
+    })
     export default class BuiltOnLogo extends Vue {
     }
 </script>
