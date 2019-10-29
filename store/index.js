@@ -12,7 +12,11 @@ export const getters = {
   getCategories: (state) => state.categories,
   getProducts: (state) => state.rawProducts.current,
   getProduct: (state) => state.product,
-  getProductsTotalCount: (state) => state.rawProducts.paginationTotal
+  getProductsTotalCount: (state) => state.rawProducts.paginationTotal,
+  getCart: (state) => {
+    const rawData = localStorage.getItem('built-bag');
+    return rawData ? JSON.parse(rawData) : [];
+  }
 };
 
 export const mutations = {

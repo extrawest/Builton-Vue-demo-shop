@@ -39,5 +39,4 @@ export default class AppHeader extends Vue {}
       cursor: pointer;
     }
   }
-
 </style>

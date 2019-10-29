@@ -1,5 +1,5 @@
 <template>
-  <div class="main-menu-container">
+  <div class="main-menu-container" @mouseleave="hideCart">
     <div class="top-header-menu-container">
       <a class="header-box-hyperlink" href="#">
         <span>LINK</span>
@@ -13,20 +13,42 @@
       <a class="header-box-hyperlink" href="#">
         <span>LINK</span>
       </a>
+
+      <div class="header-box-hyperlink header-cart" @mouseenter="showCart">
+        <svg width="18" height="18" viewBox="0 0 24 24">
+          <path fill="none" d="M0 0h24v24H0V0z"></path>
+          <path fill="black"
+                d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 3c0 .55.45 1 1 1h1l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h11c.55 0 1-.45 1-1s-.45-1-1-1H7l1.1-2h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.37-.66-.11-1.48-.87-1.48H5.21l-.67-1.43c-.16-.35-.52-.57-.9-.57H2c-.55 0-1 .45-1 1zm16 15c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"></path>
+        </svg>
+        {{ 0 }}
+      </div>
     </div>
+
+    <DropdownCart @hideCart="hideCart" @showCart="showCart" v-if="cartIsShown"/>
   </div>
 </template>
 
 <script lang="ts">
     import {Component, Vue} from "vue-property-decorator";
     import AppButton from '~/components/AppButton.vue';
+    import DropdownCart from '~/components/DropdownCart.vue';
 
     @Component({
         components: {
-            AppButton
+            AppButton,
+            DropdownCart
         }
     })
     export default class AppMenu extends Vue {
+        cartIsShown: boolean = false;
+
+        showCart(): void {
+            this.cartIsShown = true;
+        }
+
+        hideCart(): void {
+            this.cartIsShown = false;
+        }
     }
 </script>
 
@@ -36,6 +58,7 @@
   .main-menu-container {
     display: flex;
     align-self: stretch;
+    position: relative;
 
     & .empty-bag-container {
       padding: 12px 24px;
@@ -116,6 +139,16 @@
       border-left: 1px solid @PRIMARY_BORDER_COLOR;
       color: @SECONDARY_TEXT;
       background-color: @PRIMARY_BACKGROUND;
+
+      &.header-cart {
+        opacity: .7;
+        color: #000;
+        font-size: 16px;
+
+        svg {
+          margin-right: 4px;
+        }
+      }
 
       &:last-child {
         border-right: 1px solid @PRIMARY_BORDER_COLOR;
@@ -274,28 +307,6 @@
     }
   }
 
-  @-webkit-keyframes open-menu {
-    0% {
-      transform: translateX(-20%);
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes open-menu {
-    0% {
-      transform: translateX(-100%) skew(-5deg);
-      opacity: 0;
-    }
-    100% {
-      opacity: 1;
-      transform: translateX(0) skew(0);
-    }
-  }
-
 
   @media all and (max-width: 780px) {
     .header-container {
@@ -304,7 +315,7 @@
       padding: 0 12px;
       justify-content: space-between;
 
-      & .top-header-menu-container {
+      .header-box-hyperlink:not(.header-cart) {
         display: none;
       }
 

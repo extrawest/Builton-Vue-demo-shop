@@ -89,4 +89,12 @@
       padding: 0 3px;
     }
   }
+
+  @media all and (max-width: 480px) {
+    .top-header-title-container {
+      .demo-store-title {
+        display: none;
+      }
+    }
+  }
 </style>
