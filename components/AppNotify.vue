@@ -26,7 +26,7 @@
 
             this.$nextTick(() => {
                 this.type = opts.type || 'info';
-                this.message = opts.message || 'Product successfully added to your bag';
+                this.message = opts.message || 'Product successfully added to your cart';
                 this.delay = opts.delay || 4000;
                 this.showNotify = true;
 

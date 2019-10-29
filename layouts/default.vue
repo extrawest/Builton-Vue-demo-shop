@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-    import { Component, Vue } from 'vue-property-decorator'
+    import { Component, Vue, Watch } from 'vue-property-decorator'
     import AppHeader from '~/components/AppHeader.vue'
     import AppFooter from '~/components/AppFooter.vue'
 
@@ -19,7 +19,13 @@
             AppFooter
         }
     })
-    export default class DefaultLayout extends Vue {}
+    export default class DefaultLayout extends Vue {
+        $cookies: any;
+        @Watch('$store.state.cart')
+        onCartChange(newVal: any) {
+            this.$cookies.set('built-on-cart', newVal);
+        }
+    }
 </script>
 
 <style lang="less">

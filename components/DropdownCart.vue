@@ -1,13 +1,13 @@
 <template>
   <div class="cart-container" @mouseenter="$emit('showCart')" @mouseleave="$emit('hideCart')">
     <div v-if="cart.length">
-      <div class="products" v-for="prod in cart" :key="prod.id">
+      <div class="products" v-for="product in cart" :key="product.id">
         <div class="product">
-          <div>{{prod.product.name}}</div>
-          <div>
-            {{ prod.product['final_price'] }} {{ prod.product.currency }}
+          <div class="product__name">{{product.name}}</div>
+          <div class="product__price">
+            {{ product['final_price'] }} {{ product.currency }}
           </div>
-          <div class="remove-item">
+          <div @click="removeProduct(product)" class="remove-item">
             <svg width="24" height="24" viewBox="0 0 24 24">
               <path fill="none" d="M0 0h24v24H0V0z"></path>
               <path fill="#c5c5c5"
@@ -19,7 +19,7 @@
     </div>
 
     <div class="header-checkout-container">
-      <div v-if="!cart.length" class="empty-bag-container">No items in the bag.</div>
+      <div v-if="!cart.length" class="empty-bag-container">Cart is empty</div>
       <div v-if="cart.length" class="header-checkout-container">
         <AppButton @click="$router.push('/checkout/bag')" title="Proceed to checkout"/>
 
@@ -44,7 +44,11 @@
         }
 
         get totalPrice(): number {
-            return this.cart.reduce((acc, prod) => acc + prod.product['final_price'], 0)
+            return this.cart.reduce((acc, prod) => acc + prod['final_price'], 0)
+        }
+
+        removeProduct(prod: any): void {
+            this.$store.dispatch('removeProductFromCart', prod)
         }
     }
 </script>
@@ -55,7 +59,7 @@
   .cart-container {
     position: absolute;
     top: 47px;
-    right: -1px;
+    right: 0;
     width: 100vw;
     max-width: 480px;
     min-width: 288px;
@@ -77,6 +81,14 @@
       cursor: pointer;
       transition: all 150ms ease;
       z-index: 5;
+
+      &__name {
+        flex-grow: 1;
+      }
+
+      &__price {
+        padding: 0 16px;
+      }
 
       .remove-item {
         padding: 12px;
@@ -104,6 +116,14 @@
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
+
+      .empty-bag-container {
+        padding: 12px 24px;
+        font-size: 0.82rem;
+        color: @SECONDARY_TEXT;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
 
       & .header-bag-amount {
         color: @ALTERNATIVE_TEXT;

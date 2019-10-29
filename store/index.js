@@ -4,7 +4,8 @@ export function state() {
   return {
     categories: [],
     rawProducts: [],
-    product: {}
+    product: {},
+    cart: []
   }
 }
 
@@ -12,11 +13,7 @@ export const getters = {
   getCategories: (state) => state.categories,
   getProducts: (state) => state.rawProducts.current,
   getProduct: (state) => state.product,
-  getProductsTotalCount: (state) => state.rawProducts.paginationTotal,
-  getCart: (state) => {
-    const rawData = localStorage.getItem('built-bag');
-    return rawData ? JSON.parse(rawData) : [];
-  }
+  getCart: (state) => state.cart
 };
 
 export const mutations = {
@@ -26,12 +23,32 @@ export const mutations = {
   SET_PRODUCT(state, payload) {
     state.product = payload
   },
+  INIT_CART(state, payload) {
+    state.cart = payload;
+  },
   SET_RAW_PRODUCTS(state, payload) {
     state.rawProducts = payload;
-  }
+  },
+  ADD_PRODUCT(state, product) {
+    state.cart.push({
+      id: product.id,
+      name: product.name,
+      final_price: product.final_price,
+      currency: product.currency,
+    })
+  },
+  REMOVE_PRODUCT(state, id) {
+    const index = state.cart.findIndex(product => product.id === id);
+
+    state.cart.splice(index, 1)
+  },
 };
 
 export const actions = {
+  nuxtServerInit({commit}) {
+    commit('INIT_CART', this.$cookies.get('built-on-cart') || [])
+  },
+
   async fetchCategories({commit}) {
     const categories = await builtOn.products.get({
       urlParams: {expand: 'image', tags: 'category'}
@@ -64,5 +81,13 @@ export const actions = {
     });
 
     commit('SET_PRODUCT', product)
+  },
+
+  addProductToCart({commit}, product) {
+    commit('ADD_PRODUCT', product)
+  },
+
+  removeProductFromCart({commit}, product) {
+    commit('REMOVE_PRODUCT', product.id)
   }
 };

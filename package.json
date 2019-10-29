@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@builton/core-sdk": "^4.1.2",
+    "cookie-universal-nuxt": "^2.0.18",
     "firebase": "^7.2.1",
     "nuxt": "^2.0.0",
     "vue-property-decorator": "^8.3.0"

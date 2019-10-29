@@ -29,7 +29,8 @@
           </div>
         </div>
         <div class="add-to-cart-button-container">
-          <AppButton @click.native='addToBag' title="Add to Bag"/>
+          <AppButton @click.native='addToCart(product)'
+                     :title="productInCart ? 'Remove From Cart' : 'Add to Cart'"/>
         </div>
       </div>
     </div>
@@ -51,14 +52,30 @@
         }
     })
     export default class ProductPage extends Vue {
-        get product(): any[] {
+        get product(): any {
             return this.$store.getters.getProduct
         }
 
-        addToBag(e: any): void {
-            (this.$refs.notify as any).openNotify({
-                message: `${e.target.tagName} successfully added to your bag`
-            })
+        get productInCart(): any[] {
+            return this.$store.getters.getCart.find((product: any) => this.product.id === product.id)
+        }
+
+        addToCart(product: any): void {
+            if (this.productInCart) {
+                this.$store.dispatch('removeProductFromCart', product)
+                    .then(() => {
+                        (this.$refs.notify as any).openNotify({
+                            message: `${product.name} removed from your cart`
+                        })
+                    })
+            } else {
+                this.$store.dispatch('addProductToCart', product)
+                    .then(() => {
+                        (this.$refs.notify as any).openNotify({
+                            message: `${product.name} successfully added to your cart`
+                        })
+                    })
+            }
         }
     }
 </script>
