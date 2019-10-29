@@ -137,6 +137,7 @@
       background-color: @PRIMARY_BACKGROUND;
 
       &.header-cart {
+        padding: 0 32px;
         opacity: .7;
         color: #000;
         font-size: 16px;

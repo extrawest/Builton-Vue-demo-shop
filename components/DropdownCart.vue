@@ -88,6 +88,7 @@
 
       &__price {
         padding: 0 16px;
+        flex-shrink: 0;
       }
 
       .remove-item {

@@ -36,6 +36,7 @@
   .product-container {
     padding: 12px;
     margin: 26px;
+    min-height: 294px;
     background-color: @PRIMARY_BACKGROUND;
     border: 1px solid @PRIMARY_BORDER_COLOR;
     display: flex;
