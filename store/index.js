@@ -35,6 +35,7 @@ export const mutations = {
       name: product.name,
       final_price: product.final_price,
       currency: product.currency,
+      brand: product.tags[0]
     })
   },
   REMOVE_PRODUCT(state, id) {

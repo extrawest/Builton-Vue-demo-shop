@@ -213,6 +213,8 @@
       flex: 1;
       flex-direction: column;
       display: flex;
+      position: relative;
+      z-index: 1;
 
       & .product-image-inner-container {
         flex: 1;
@@ -260,7 +262,7 @@
         flex-basis: auto;
         & .product-image-inner-container {
           & > div {
-            max-width: 100vw;
+            max-width: 75vw;
           }
         }
       }
@@ -295,6 +297,9 @@
 
   @media all and (max-width: 1280px) {
     .product-wrapper {
+      &:before {
+        display: none;
+      }
 
       & .product-description-container {
         flex: 1 50%;

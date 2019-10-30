@@ -3,12 +3,12 @@
     <div class="header-logo-container">
     <BuiltOnLogo @click.native="$router.push('/')" />
   </div>
-  <AppMenu />
+  <AppMenu v-if="!hideMenu" />
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+import { Component, Vue, Prop } from 'vue-property-decorator'
 import BuiltOnLogo from '~/components/BuiltOnLogo.vue'
 import AppMenu from '~/components/AppMenu.vue'
 
@@ -18,7 +18,9 @@ import AppMenu from '~/components/AppMenu.vue'
         AppMenu
     }
 })
-export default class AppHeader extends Vue {}
+export default class AppHeader extends Vue {
+    @Prop({default: false}) hideMenu!: boolean;
+}
 </script>
 
 <style lang="less" scoped>

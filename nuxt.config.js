@@ -15,5 +15,8 @@ export default {
   css: [{src: '~/assets/main.less', lang: 'less'}],
   plugins: [{src: '~/plugins/builtOn.js', mode: 'server'}],
   modules: ['cookie-universal-nuxt'],
-  buildModules: ['@nuxt/typescript-build']
+  buildModules: ['@nuxt/typescript-build'],
+  serverMiddleware: [
+    '~/api/index.js',
+  ]
 }
