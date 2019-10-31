@@ -13,7 +13,6 @@
         middleware: 'checkAuth'
     })
     export default class CheckoutAuth extends Vue {
-
     }
 </script>
 
