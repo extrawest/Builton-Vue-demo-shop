@@ -1,5 +1,5 @@
 <template>
-  <div class="checkout">
+  <div>
     <div v-if="cart.length" class="checkout-items">
       <div class="items-header">Your items</div>
       <div class="table">
@@ -26,6 +26,10 @@
           <div>{{totalPrice}} {{cart[0].currency}}</div>
         </div>
       </div>
+
+      <AppButton class="button"
+                 @click="$router.push('/checkout/auth')"
+                 title="Next"/>
     </div>
 
     <div v-if="!cart.length" class="empty-bag">
@@ -40,13 +44,15 @@
     import {Component, Vue} from 'vue-property-decorator'
     import RemoveIcon from '~/components/RemoveIcon.vue'
     import BuiltOnLogo from '~/components/BuiltOnLogo.vue'
+    import AppButton from '~/components/AppButton.vue'
 
     @Component({
         name: 'CheckoutCart',
         layout: 'checkout',
         components: {
             RemoveIcon,
-            BuiltOnLogo
+            BuiltOnLogo,
+            AppButton
         }
     })
     export default class CheckoutCart extends Vue {
@@ -66,20 +72,6 @@
 
 <style lang="less" scoped>
   @import "../../assets/variables";
-
-  .checkout {
-    box-sizing: border-box;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 85vh;
-    max-width: 800px;
-    width: 100%;
-    margin: 0 auto;
-    padding: 64px;
-    z-index: 1;
-  }
 
   .empty-bag {
     position: absolute;
@@ -104,6 +96,10 @@
     .nuxt-link-active {
       color: @POSITIVE_STATUS;
     }
+  }
+
+  .button {
+    margin: 32px auto;
   }
 
   .checkout-items {
@@ -201,13 +197,6 @@
 
     .remove-col {
       min-width: 15%;
-    }
-  }
-
-  @media (max-width: 780px) {
-    .checkout {
-      padding: 24px 16px;
-      overflow: hidden;
     }
   }
 </style>
