@@ -61,7 +61,13 @@
 
             fetch(`https://us1.locationiq.com/v1/search.php?key=05f527f49d8a94&q=${this.query}&format=json`)
                 .then(res => res.json())
-                .then(res => this.locationIq = res);
+                .then(res => {
+                    if (res && res.length) {
+                        this.locationIq = res
+                    } else {
+                        this.locationIq = []
+                    }
+                });
         }
 
         setAddress(address: any): void {

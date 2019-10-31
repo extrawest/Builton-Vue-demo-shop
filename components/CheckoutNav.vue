@@ -55,6 +55,7 @@
     width: 288px;
     margin: 0 auto;
     padding: 16px 0;
+    border-radius: 14px;
     background-color: rgba(@PRIMARY_BACKGROUND, .5);
 
     .line {
