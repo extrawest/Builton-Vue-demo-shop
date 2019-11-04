@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ProductList editable />
+    <ProductList :editable="true" />
 
     <div v-if="!cart.length" class="empty-bag">
       <BuiltOnLogo />

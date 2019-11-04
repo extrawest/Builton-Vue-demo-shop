@@ -47,7 +47,8 @@
         private confirmed: boolean = false;
 
         confirm(): void {
-            this.confirmed = true
+            this.confirmed = true;
+            this.$store.dispatch('clearOrder');
         }
     }
 </script>

@@ -54,6 +54,10 @@ export const mutations = {
   },
   SET_DELIVERY_ADDRESS(state, address) {
     state.order.address = address
+  },
+  CLEAR_ORDER(state) {
+    state.order.address = '';
+    state.cart = [];
   }
 };
 
@@ -106,5 +110,9 @@ export const actions = {
 
   setDeliveryAddress({ commit }, address) {
     commit('SET_DELIVERY_ADDRESS', address)
+  },
+
+  clearOrder({commit}) {
+    commit('CLEAR_ORDER')
   }
 };
