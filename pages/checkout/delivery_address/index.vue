@@ -18,14 +18,9 @@
     </div>
 
     <template v-if="address">
-      <div class="heading__sub">Selected delivery address</div>
-      <div class="list-item-row">
-        <p>{{ address }}</p>
-        <div class="mark">✓</div>
-      </div>
+      <AddressBox/>
 
-      <AppButton class="button"
-                 @click="$router.push('/checkout/confirmation')" title="next"/>
+      <AppButton class="button" @click="$router.push('/checkout/confirmation')" title="next"/>
     </template>
   </div>
 </template>
@@ -34,18 +29,23 @@
     import {Component, Vue} from 'vue-property-decorator'
     import throttle from '~/plugins/throttle'
     import AppButton from '~/components/AppButton.vue'
+    import AddressBox from './AddressBox.vue'
 
     @Component({
         name: "delivery_address",
         layout: 'checkout',
         components: {
-            AppButton
+            AppButton,
+            AddressBox
         }
     })
     export default class DeliveryAddress extends Vue {
         query: string = '';
         locationIq: any[] = [];
-        address: string = 'test';
+
+        get address(): string {
+            return this.$store.getters.getOrder.address
+        }
 
         get throttledSearch(): any {
             return throttle(this.search, 300);
@@ -57,7 +57,7 @@
 
         search(): void {
             if (this.query.length < 2) return;
-            this.address = '';
+            this.$store.dispatch('setDeliveryAddress', '');
 
             fetch(`https://us1.locationiq.com/v1/search.php?key=05f527f49d8a94&q=${this.query}&format=json`)
                 .then(res => res.json())
@@ -72,13 +72,13 @@
 
         setAddress(address: any): void {
             this.query = '';
-            this.address = address;
+            this.$store.dispatch('setDeliveryAddress', address);
         }
     }
 </script>
 
 <style lang="less" scoped>
-  @import "../../assets/variables";
+  @import "../../../assets/variables";
 
   .heading {
     box-sizing: border-box;
@@ -86,6 +86,7 @@
     margin: 12px 0 24px;
     padding: 8px 16px;
     border-bottom: 4px solid @SECONDARY_BORDER_COLOR;
+
     &__sub {
       line-height: 1.15;
       box-sizing: border-box;
@@ -130,36 +131,6 @@
       &:hover {
         background: rgba(@SECONDARY_TEXT, .2);
       }
-    }
-  }
-
-  .list-item-row {
-    display: flex;
-    flex-direction: row;
-    padding: 16px 24px;
-    border: 2px solid @SECONDARY_BORDER_COLOR;
-    background-color: rgba(@PRIMARY_BACKGROUND, .7);
-    border-radius: 12px;
-    position: relative;
-    letter-spacing: 1px;
-    transition: all 250ms ease-in;
-    margin-top: 16px;
-
-    .mark {
-      margin-top: auto;
-      line-height: 1.15;
-      font-weight: 300;
-      letter-spacing: 1px;
-      cursor: pointer;
-      box-sizing: border-box;
-      font-size: 40px;
-      color: @SECONDARY_BORDER_COLOR;
-    }
-
-    &:hover {
-      transition: all 250ms ease-in;
-      cursor: pointer;
-      box-shadow: 0 0 20px -11px rgba(0, 0, 0, 0.75);
     }
   }
 

@@ -5,7 +5,15 @@ export function state() {
     categories: [],
     rawProducts: [],
     product: {},
-    cart: []
+    cart: [],
+    order: {
+      card: {
+        last4: 4242,
+        exp_month: 10,
+        exp_year: 2020
+      },
+      address: ''
+    }
   }
 }
 
@@ -13,7 +21,8 @@ export const getters = {
   getCategories: (state) => state.categories,
   getProducts: (state) => state.rawProducts.current,
   getProduct: (state) => state.product,
-  getCart: (state) => state.cart
+  getCart: (state) => state.cart,
+  getOrder: (state) => state.order
 };
 
 export const mutations = {
@@ -43,6 +52,9 @@ export const mutations = {
 
     state.cart.splice(index, 1)
   },
+  SET_DELIVERY_ADDRESS(state, address) {
+    state.order.address = address
+  }
 };
 
 export const actions = {
@@ -90,5 +102,9 @@ export const actions = {
 
   removeProductFromCart({commit}, product) {
     commit('REMOVE_PRODUCT', product.id)
+  },
+
+  setDeliveryAddress({ commit }, address) {
+    commit('SET_DELIVERY_ADDRESS', address)
   }
 };
