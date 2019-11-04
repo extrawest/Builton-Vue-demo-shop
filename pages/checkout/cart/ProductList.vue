@@ -1,63 +1,59 @@
 <template>
-  <div>
-    <div v-if="cart.length" class="checkout-items">
-      <div class="items-header">Your items</div>
-      <div class="table">
-        <div class="table-row table-header">
-          <div class="col brand-col">Brand</div>
-          <div class="col name-col">Model</div>
-          <div class="col price-col">Price</div>
-          <div class="col remove-col"></div>
+  <div v-if="cart.length" class="checkout-items" :class="{'editable': editable}">
+    <div v-if="editable" class="items-header">Your items</div>
+    <div class="table">
+      <div v-if="editable" class="table-row table-header">
+        <div class="col brand-col">Brand</div>
+        <div class="col name-col">Model</div>
+        <div class="col price-col">Price</div>
+        <div class="col remove-col"></div>
+      </div>
+
+      <div v-for="product in cart" :key="product.id" class="table-row">
+        <div class="col brand-col">{{ product.brand }}</div>
+
+        <nuxt-link v-if="editable" :to="{path: `/product/${product.id }`}" tag="div" class="col name-col">
+          {{ product.name }}
+        </nuxt-link>
+        <div v-if="!editable" class="col name-col">
+          {{ product.name }}
         </div>
 
-        <div v-for="product in cart" :key="product.id" class="table-row">
-          <div class="col brand-col">{{ product.brand }}</div>
-          <nuxt-link :to="{path: `/product/${product.id }`}" tag="div" class="col name-col">
-            {{ product.name }}
-          </nuxt-link>
-          <div class="col price-col">{{ product['final_price'] }} {{ product.currency }}</div>
-          <div class="col remove-col" @click="removeProduct(product)">
-            <RemoveIcon/>
-          </div>
-        </div>
-
-        <div class="table-row total">
-          <div>Total</div>
-          <div>{{totalPrice}} {{cart[0].currency}}</div>
+        <div class="col price-col">{{ product['final_price'] }} {{ product.currency }}</div>
+        <div v-if="editable" class="col remove-col" @click="removeProduct(product)">
+          <RemoveIcon/>
         </div>
       </div>
 
-      <AppButton class="button"
-                 @click="$router.push('/checkout/auth')"
-                 title="Next"/>
+      <div class="table-row total">
+        <div>Total</div>
+        <div>{{totalPrice}} {{cart[0].currency}}</div>
+      </div>
     </div>
 
-    <div v-if="!cart.length" class="empty-bag">
-      <BuiltOnLogo />
-      <p>The cart is empty</p>
-      <nuxt-link to="/">Keep shopping</nuxt-link>
-    </div>
+    <AppButton v-if="editable"
+               class="button"
+               @click="$router.push('/checkout/auth')"
+               title="Next"/>
   </div>
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from 'vue-property-decorator'
+    import {Component, Prop, Vue} from 'vue-property-decorator'
     import RemoveIcon from '~/components/RemoveIcon.vue'
-    import BuiltOnLogo from '~/components/BuiltOnLogo.vue'
     import AppButton from '~/components/AppButton.vue'
 
     @Component({
-        name: 'CheckoutCart',
-        layout: 'checkout',
         components: {
-            RemoveIcon,
-            BuiltOnLogo,
-            AppButton
+            AppButton,
+            RemoveIcon
         }
     })
-    export default class CheckoutCart extends Vue {
+    export default class ProductList extends Vue {
+        @Prop({default: true}) editable!: boolean;
+
         get cart(): any [] {
-            return this.$store.getters.getCart
+            return this.$store.getters.getCart || []
         }
 
         get totalPrice(): number {
@@ -71,32 +67,7 @@
 </script>
 
 <style lang="less" scoped>
-  @import "../../assets/variables";
-
-  .empty-bag {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 32px;
-    line-height: 1.15;
-    letter-spacing: 1px;
-    font-size: 1.12rem;
-    color: @SECONDARY_TEXT;
-
-    p {
-      padding: 32px 0;
-    }
-
-    .nuxt-link-active {
-      color: @POSITIVE_STATUS;
-    }
-  }
+  @import "../../../assets/variables";
 
   .button {
     margin: 32px auto;
@@ -124,8 +95,8 @@
       align-items: center;
       font-size: .78rem;
       letter-spacing: 1px;
-      cursor: pointer;
       transition: .25s ease-in;
+      cursor: default;
       padding: 6px 12px;
 
       &.table-header {
@@ -146,9 +117,10 @@
         border-top: 1px solid @PRIMARY_BORDER_COLOR;
       }
 
-      &:hover {
+      &.editable:hover {
         background-color: @SECONDARY_BACKGROUND;
         transition: all 250ms ease-in;
+        cursor: pointer;
       }
 
       & > div {

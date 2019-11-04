@@ -45,10 +45,10 @@
     export default class DeliveryAddress extends Vue {
         query: string = '';
         locationIq: any[] = [];
-        address: string = '';
+        address: string = 'test';
 
         get throttledSearch(): any {
-            return throttle(this.search, 500);
+            return throttle(this.search, 300);
         }
 
         get options(): any[] {
@@ -56,7 +56,7 @@
         }
 
         search(): void {
-            if (this.query.length < 3) return;
+            if (this.query.length < 2) return;
             this.address = '';
 
             fetch(`https://us1.locationiq.com/v1/search.php?key=05f527f49d8a94&q=${this.query}&format=json`)

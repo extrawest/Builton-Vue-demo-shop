@@ -39,7 +39,7 @@ export const mutations = {
     })
   },
   REMOVE_PRODUCT(state, id) {
-    const index = state.cart.findIndex(product => product.id === id);
+    const index = state.index.findIndex(product => product.id === id);
 
     state.cart.splice(index, 1)
   },
