@@ -1,3 +1,3 @@
 export default function ({ store, redirect }) {
-  if (store.state.user) redirect('/checkout/payment_method')
+  if (store.state.userEmail) redirect('/checkout/payment_method')
 }

@@ -39,7 +39,7 @@
     @Component({
         components: {
             AppButton
-        }
+        },
     })
     export default class AuthForm extends Vue {
         email: string = '';
@@ -92,7 +92,7 @@
 
         submit(): void {
             this.$emit('submit');
-            console.log('valid')
+            this.$store.dispatch('setUserEmail', this.email);
         }
     }
 </script>
