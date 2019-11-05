@@ -1,5 +1,5 @@
 <template>
-  <div class="main-menu-container" @mouseleave="hideCart">
+  <div class="main-menu-container" @mouseleave="() => hideCart() || hideAccount()">
     <div class="top-header-menu-container">
       <a class="header-box-hyperlink" href="#">
         <span>LINK</span>
@@ -14,17 +14,25 @@
         <span>LINK</span>
       </a>
 
-      <div class="header-box-hyperlink header-cart" @mouseenter="showCart">
+      <div class="header-box-hyperlink header-dropdown" @mouseenter="showCart">
         <svg width="18" height="18" viewBox="0 0 24 24">
           <path fill="none" d="M0 0h24v24H0V0z"></path>
-          <path fill="black"
+          <path fill="#111"
                 d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 3c0 .55.45 1 1 1h1l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h11c.55 0 1-.45 1-1s-.45-1-1-1H7l1.1-2h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.37-.66-.11-1.48-.87-1.48H5.21l-.67-1.43c-.16-.35-.52-.57-.9-.57H2c-.55 0-1 .45-1 1zm16 15c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"></path>
         </svg>
         {{ cart.length }}
       </div>
+
+      <div class="header-box-hyperlink header-dropdown" @mouseenter="showAccount">
+        <svg width="18" height="18" viewBox="0 0 24 24">
+          <path fill="none" d="M0 0h24v24H0V0z"/>
+          <path fill="#111" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zM7.07 18.28c.43-.9 3.05-1.78 4.93-1.78s4.51.88 4.93 1.78C15.57 19.36 13.86 20 12 20s-3.57-.64-4.93-1.72zm11.29-1.45c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33C4.62 15.49 4 13.82 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.82-.62 3.49-1.64 4.83zM12 6c-1.94 0-3.5 1.56-3.5 3.5S10.06 13 12 13s3.5-1.56 3.5-3.5S13.94 6 12 6zm0 5c-.83 0-1.5-.67-1.5-1.5S11.17 8 12 8s1.5.67 1.5 1.5S12.83 11 12 11z"/>
+        </svg>
+      </div>
     </div>
 
     <DropdownCart @hideCart="hideCart" @showCart="showCart" v-if="cartIsShown"/>
+    <DropdownAccount @hideAccount="hideAccount" @showAccount="showAccount" v-if="accountIsShown"/>
   </div>
 </template>
 
@@ -32,15 +40,18 @@
     import {Component, Vue} from "vue-property-decorator";
     import AppButton from '~/components/AppButton.vue';
     import DropdownCart from '~/components/DropdownCart.vue';
+    import DropdownAccount from '~/components/DropdownAccount.vue';
 
     @Component({
         components: {
             AppButton,
-            DropdownCart
+            DropdownCart,
+            DropdownAccount
         }
     })
     export default class AppMenu extends Vue {
         cartIsShown: boolean = false;
+        accountIsShown: boolean = false;
 
         get cart(): any [] {
             return this.$store.getters.getCart
@@ -48,10 +59,20 @@
 
         showCart(): void {
             this.cartIsShown = true;
+            this.accountIsShown = false;
         }
 
         hideCart(): void {
             this.cartIsShown = false;
+        }
+
+        showAccount(): void {
+            this.accountIsShown = true;
+            this.cartIsShown = false;
+        }
+
+        hideAccount(): void {
+            this.accountIsShown = false;
         }
     }
 </script>
@@ -136,7 +157,7 @@
       color: @SECONDARY_TEXT;
       background-color: @PRIMARY_BACKGROUND;
 
-      &.header-cart {
+      &.header-dropdown {
         padding: 0 32px;
         opacity: .7;
         color: #000;
@@ -312,7 +333,7 @@
       padding: 0 12px;
       justify-content: space-between;
 
-      .header-box-hyperlink:not(.header-cart) {
+      .header-box-hyperlink:not(.header-dropdown) {
         display: none;
       }
 

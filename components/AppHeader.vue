@@ -1,26 +1,26 @@
 <template>
   <div class="header-container">
     <div class="header-logo-container">
-    <BuiltOnLogo @click.native="$router.push('/')" />
-  </div>
-  <AppMenu v-if="!hideMenu" />
+      <BuiltOnLogo @click.native="$router.push('/')"/>
+    </div>
+    <AppMenu v-if="!hideMenu"/>
   </div>
 </template>
 
 <script lang="ts">
-import { Component, Vue, Prop } from 'vue-property-decorator'
-import BuiltOnLogo from '~/components/BuiltOnLogo.vue'
-import AppMenu from '~/components/AppMenu.vue'
+    import {Component, Vue, Prop} from 'vue-property-decorator'
+    import BuiltOnLogo from '~/components/BuiltOnLogo.vue'
+    import AppMenu from '~/components/AppMenu.vue'
 
-@Component({
-    components: {
-        BuiltOnLogo,
-        AppMenu
+    @Component({
+        components: {
+            BuiltOnLogo,
+            AppMenu
+        }
+    })
+    export default class AppHeader extends Vue {
+        @Prop({default: false}) hideMenu!: boolean;
     }
-})
-export default class AppHeader extends Vue {
-    @Prop({default: false}) hideMenu!: boolean;
-}
 </script>
 
 <style lang="less" scoped>
@@ -37,8 +37,15 @@ export default class AppHeader extends Vue {
     background-color: white;
     z-index: 2;
     border-bottom: 1px solid @PRIMARY_BORDER_COLOR;
+
     & .header-logo-container {
       cursor: pointer;
+    }
+  }
+
+  @media all and (max-width: 780px) {
+    .header-container {
+      padding: 0 0 0 12px;
     }
   }
 </style>

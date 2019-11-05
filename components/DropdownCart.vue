@@ -60,7 +60,7 @@
     width: 100vw;
     max-width: 480px;
     min-width: 288px;
-    background-color: #fff;
+    background-color: @PRIMARY_BACKGROUND;
     border: 1px solid @PRIMARY_BORDER_COLOR;
 
     .product {
