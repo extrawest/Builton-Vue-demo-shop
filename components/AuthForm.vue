@@ -42,8 +42,8 @@
         },
     })
     export default class AuthForm extends Vue {
-        email: string = '';
-        password1: string = '';
+        email: string = '5797565@gmail.com';
+        password1: string = '123123123';
         password2: string = '';
         loginMode: boolean = true;
         emailError: string = '';

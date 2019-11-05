@@ -122,6 +122,15 @@ export const actions = {
   },
 
   setUserEmail({commit}, email) {
-    commit('SET_USER_EMAIL', email)
+    commit('SET_USER_EMAIL', email);
+
+    // fetch('api/echo', {
+    //   method: 'post',
+    //   headers: {
+    //
+    //   }
+    // }).then(console.log)
+
+    fetch('api/echo').then(console.log)
   }
 };
