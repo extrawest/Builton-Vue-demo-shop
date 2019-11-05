@@ -2,9 +2,18 @@
   <div class="form-wrapper">
     <div class="form">
       <label class="label">
-        <input type="email"
+        <input type="text"
                autofocus
+               placeholder="Name"
+               maxlength="24"
+               v-model="name">
+        <span v-if="nameError">{{nameError}}</span>
+      </label>
+
+      <label class="label">
+        <input type="email"
                placeholder="Email"
+               maxlength="24"
                v-model="email">
         <span v-if="emailError">{{emailError}}</span>
       </label>
@@ -13,6 +22,7 @@
         <input type="password"
                autofocus
                placeholder="Password"
+               maxlength="24"
                v-model="password1">
         <span v-if="password1Error">{{password1Error}}</span>
       </label>
@@ -21,6 +31,7 @@
         <input type="password"
                autofocus
                placeholder="Confirm password"
+               maxlength="24"
                v-model="password2">
         <span v-if="password2Error">{{password2Error}}</span>
       </label>
@@ -42,13 +53,20 @@
         },
     })
     export default class AuthForm extends Vue {
+        name: string = 'Eugene';
         email: string = '5797565@gmail.com';
         password1: string = '123123123';
         password2: string = '';
         loginMode: boolean = true;
+        nameError: string = '';
         emailError: string = '';
         password1Error: string = '';
         password2Error: string = '';
+
+        @Watch('email')
+        onNameChange() {
+            this.nameError = '';
+        }
 
         @Watch('email')
         onEmailChange() {
@@ -68,6 +86,10 @@
         validate(): void {
             if (!/\S+@\S+\.\S+/.test(this.email)) {
                 this.emailError = 'Email is not valid';
+            }
+
+            if (this.name.length < 5) {
+                this.password1Error = 'At least 5 characters required';
             }
 
             if (this.password1.length < 5) {
@@ -92,7 +114,10 @@
 
         submit(): void {
             this.$emit('submit');
-            this.$store.dispatch('setUserEmail', this.email);
+            this.$store.dispatch('setUserEmail', {
+                email: this.email,
+                password: this.password1
+            });
         }
     }
 </script>
@@ -104,7 +129,7 @@
     position: relative;
     z-index: 1;
     width: 288px;
-    max-height: 320px;
+    max-height: 360px;
     margin: 64px auto;
     overflow: visible;
 

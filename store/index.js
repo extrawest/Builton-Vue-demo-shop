@@ -1,4 +1,5 @@
 import builtOn from '~/plugins/builtOn'
+import {$post} from '~/plugins/http'
 
 export function state() {
   return {
@@ -121,16 +122,10 @@ export const actions = {
     commit('CLEAR_ORDER')
   },
 
-  setUserEmail({commit}, email) {
-    commit('SET_USER_EMAIL', email);
+  setUserEmail({commit}, payload) {
+    commit('SET_USER_EMAIL', payload.email);
 
-    // fetch('api/echo', {
-    //   method: 'post',
-    //   headers: {
-    //
-    //   }
-    // }).then(console.log)
-
-    fetch('api/echo').then(console.log)
+    $post('api/auth', payload)
+      .then(console.log)
   }
 };

@@ -16,6 +16,7 @@
     "cookie-universal-nuxt": "^2.0.18",
     "express": "^4.17.1",
     "nuxt": "^2.0.0",
+    "password-hash": "^1.2.2",
     "vue-property-decorator": "^8.3.0"
   },
   "devDependencies": {
