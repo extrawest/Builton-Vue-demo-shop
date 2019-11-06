@@ -34,6 +34,7 @@
     @Component({
         name: "delivery_address",
         layout: 'checkout',
+        middleware: 'checkAuth',
         components: {
             AppButton,
             AddressBox

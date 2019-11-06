@@ -1,6 +1,6 @@
 <template>
     <div class="account-container" @mouseenter="$emit('showAccount')" @mouseleave="$emit('hideAccount')">
-      <AppButton @click="$router.push('/auth')" title="Log in / sign up"/>
+      <AppButton @click="clickHandler" :title="user ? 'Log out' : 'Log in / sign up'"/>
     </div>
 </template>
 
@@ -14,6 +14,14 @@
         }
     })
     export default class DropdownAccount extends Vue {
+        get user(): any {
+            return this.$store.getters['user/getUser']
+        }
+
+        clickHandler(): void {
+            if (this.user) this.$store.dispatch('user/logOut');
+            else this.$router.push('/auth')
+        }
     }
 </script>
 

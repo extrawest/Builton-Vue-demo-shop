@@ -18,6 +18,7 @@
     @Component({
         name: "payment_method",
         layout: 'checkout',
+        middleware: 'checkAuth',
         components: {
             AppButton,
             PaymentMethodBox

@@ -23,11 +23,15 @@ export const mutations = {
 
 export const actions = {
   authAction({commit}, {name, email, password, loginMode}) {
-    const path = loginMode ? 'api/login' : 'api/auth';
+    const path = loginMode ? '/api/login' : '/api/auth';
     const user = loginMode ? {email, password} : {email, password, name};
 
     $post(path, user)
       .then(user => commit('SET_USER', user))
       .catch(({message}) => commit('SET_AUTH_ERROR', message));
+  },
+
+  logOut({commit}) {
+    $post('/api/logout').then(() => commit('SET_USER', null))
   }
 };

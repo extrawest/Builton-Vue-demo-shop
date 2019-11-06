@@ -35,6 +35,7 @@
     @Component({
         name: 'confirmation',
         layout: 'checkout',
+        middleware: 'checkAuth',
         components: {
             ProductList,
             PaymentMethodBox,

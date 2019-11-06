@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-    import {Component, Vue} from 'vue-property-decorator'
+    import {Component, Watch, Vue} from 'vue-property-decorator'
     import AppButton from '~/components/AppButton.vue'
     import AuthForm from '~/components/AuthForm.vue'
 
@@ -16,5 +16,13 @@
         }
     })
     export default class AppAuth extends Vue {
+        get user(): any {
+            return this.$store.getters['user/getUser']
+        }
+
+        @Watch('user')
+        onUserChange(user: any) {
+            if (user) this.$router.replace('/');
+        }
     }
 </script>
