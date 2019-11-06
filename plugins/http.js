@@ -1,15 +1,20 @@
-export async function $post(path, body) {
-  return fetch(path, {
+const getHeaders = body => {
+  return {
     method: 'post',
     headers: {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(body)
-  })
-    .then(res => res.json())
-}
+  }
+};
 
-export async function $get(path) {
-  return fetch(path)
-    .then(res => res.json())
+export function $post(path, body) {
+  return new Promise((resolve, reject) => {
+      return fetch(path, getHeaders(body))
+        .then(async res => {
+          if (res.status === 200) resolve(await res.json());
+          if (res.status === 400) reject(await res.json());
+        })
+    }
+  )
 }

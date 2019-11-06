@@ -1,12 +1,18 @@
 const express = require('express');
 const app = express();
+import {addUser} from './dbHelper'
 
 app.use(express.urlencoded());
 app.use(express.json());
 
-app.post('/auth', (req, res) => {
-  console.log(req.body);
-  res.json({ok: 'dobro'});
+app.post('/auth', ({body}, res) => {
+  const {name, email, password} = body;
+
+  addUser({name, email, password})
+    .then(userId => res.json({userId}))
+    .catch(() => res.status(400)
+      .send({message: 'User with email address already exists'})
+    );
 });
 
 app.post('/login', (req, res) => {
@@ -18,40 +24,3 @@ module.exports = {
   path: '/api',
   handler: app
 };
-
-// const express = require('express');
-// const hash = require('password-hash');
-// const app = express();
-// const fs = require('fs');
-//
-// function getUserInfo(buffer, payload) {
-//   const {name, email, password} = payload;
-//   const users = JSON.parse(buffer.toString());
-//   const user = users.find(e => e.email === email);
-//   const verified = hash.verify(password, user.password);
-//
-//   if (!user) return {success: false, message: 'There is no user with this email address'};
-//   if (!verified) return {success: false, message: 'Password is not correct'};
-//
-//   return {
-//     success: true,
-//     user: {name, email}
-//   };
-// }
-//
-// app.use(express.urlencoded());
-// app.use(express.json());
-//
-// app.post('/auth', (req, res) => {
-//   fs.readFile(`${__dirname}/users.txt`, (_, buffer) => {
-//     const userInfo = getUserInfo(buffer, req.body);
-//
-//     if (userInfo.success) res.json(userInfo.user);
-//     else res.status(400).send({message: userInfo.message})
-//   });
-// });
-//
-// module.exports = {
-//   path: '/api',
-//   handler: app
-// };

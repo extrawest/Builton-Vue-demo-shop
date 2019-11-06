@@ -40,16 +40,20 @@
 
       <div @click="loginMode = !loginMode" class="toggle">{{!loginMode ? 'LOG IN' : 'REGISTER'}}</div>
     </div>
+
+    <AppNotify ref="notify" />
   </div>
 </template>
 
 <script lang="ts">
     import {Component, Vue, Watch} from 'vue-property-decorator'
     import AppButton from '~/components/AppButton.vue'
+    import AppNotify from '~/components/AppNotify.vue'
 
     @Component({
         components: {
-            AppButton
+            AppButton,
+            AppNotify
         },
     })
     export default class AuthForm extends Vue {
@@ -83,13 +87,24 @@
             this.password2Error = '';
         }
 
+        @Watch('authError')
+        onAuthError(message: any) {
+            if (!message) return;
+            (this.$refs.notify as any).openNotify({message, type: 'error'});
+            this.$store.commit('user/SET_AUTH_ERROR', '');
+        }
+
+        get authError(): any {
+            return this.$store.getters['user/getAuthError'];
+        }
+
         validate(): void {
             if (!/\S+@\S+\.\S+/.test(this.email)) {
                 this.emailError = 'Email is not valid';
             }
 
-            if (this.name.length < 5) {
-                this.password1Error = 'At least 5 characters required';
+            if (!this.loginMode && this.name.length < 5) {
+                this.nameError = 'At least 5 characters required';
             }
 
             if (this.password1.length < 5) {
@@ -104,8 +119,9 @@
                 this.password2Error = 'Passwords do not match';
             }
 
-            if (this.emailError || this.password1Error || this.password2Error) return;
+            if (this.nameError || this.emailError || this.password1Error || this.password2Error) return;
 
+            this.nameError = '';
             this.emailError = '';
             this.password1Error = '';
             this.password2Error = '';
@@ -119,6 +135,7 @@
             this.$store.dispatch('user/authAction', {
                 loginMode: this.loginMode,
                 email: this.email,
+                name: this.name,
                 password: this.password1
             });
         }
