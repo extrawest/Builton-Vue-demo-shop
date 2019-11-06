@@ -113,8 +113,11 @@
         }
 
         submit(): void {
+            // TODO replace $emit with User getter
             this.$emit('submit');
-            this.$store.dispatch('setUserEmail', {
+
+            this.$store.dispatch('user/authAction', {
+                loginMode: this.loginMode,
                 email: this.email,
                 password: this.password1
             });

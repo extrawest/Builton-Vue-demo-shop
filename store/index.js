@@ -1,5 +1,4 @@
 import builtOn from '~/plugins/builtOn'
-import {$post} from '~/plugins/http'
 
 export function state() {
   return {
@@ -7,7 +6,6 @@ export function state() {
     rawProducts: [],
     product: {},
     cart: [],
-    userEmail: '',
     order: {
       card: {
         last4: 4242,
@@ -24,8 +22,7 @@ export const getters = {
   getProducts: (state) => state.rawProducts.current,
   getProduct: (state) => state.product,
   getCart: (state) => state.cart,
-  getOrder: (state) => state.order,
-  getUserEmail: (state) => state.userEmail
+  getOrder: (state) => state.order
 };
 
 export const mutations = {
@@ -61,9 +58,6 @@ export const mutations = {
   CLEAR_ORDER(state) {
     state.order.address = '';
     state.cart = [];
-  },
-  SET_USER_EMAIL(state, email) {
-    state.userEmail = email;
   }
 };
 
@@ -120,12 +114,5 @@ export const actions = {
 
   clearOrder({commit}) {
     commit('CLEAR_ORDER')
-  },
-
-  setUserEmail({commit}, payload) {
-    commit('SET_USER_EMAIL', payload.email);
-
-    $post('api/auth', payload)
-      .then(console.log)
   }
 };
