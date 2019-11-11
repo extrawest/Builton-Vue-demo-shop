@@ -28,11 +28,11 @@
 
         @Watch('currentPath')
         onPahChange(newVal: string) {
-          this.setProgress(newVal)
+          this.setProgress(newVal);
         }
 
         mounted() {
-            this.setProgress(this.currentPath)
+            this.setProgress(this.currentPath);
         }
 
         setProgress(path: string): void {

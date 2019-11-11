@@ -1,4 +1,5 @@
 import builtOn from '~/plugins/builtOn'
+import {$post} from "~/plugins/http";
 
 export function state() {
   return {
@@ -62,8 +63,10 @@ export const mutations = {
 };
 
 export const actions = {
-  nuxtServerInit({commit}) {
-    commit('INIT_CART', this.$cookies.get('built-on-cart') || [])
+  nuxtServerInit({commit}, {req}) {
+    const email = this.$cookies.get('built-on-secret');
+
+    console.log(req)
   },
 
   async fetchCategories({commit}) {

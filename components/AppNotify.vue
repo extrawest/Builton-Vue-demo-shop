@@ -31,7 +31,7 @@
                 this.showNotify = true;
 
                 this.timer = setTimeout(() => {
-                    this.showNotify = false
+                    this.showNotify = false;
                 }, this.delay)
             })
         }

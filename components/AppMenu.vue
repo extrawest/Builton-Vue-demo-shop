@@ -54,7 +54,7 @@
         accountIsShown: boolean = false;
 
         get cart(): any [] {
-            return this.$store.getters.getCart
+            return this.$store.getters.getCart;
         }
 
         showCart(): void {

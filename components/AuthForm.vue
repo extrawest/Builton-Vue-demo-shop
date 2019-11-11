@@ -1,7 +1,7 @@
 <template>
   <div class="form-wrapper">
     <div class="form">
-      <label class="label">
+      <label  v-if="!loginMode" class="label">
         <input type="text"
                autofocus
                placeholder="Name"

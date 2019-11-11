@@ -28,7 +28,7 @@
         @Prop() category!: any;
 
         onLoad(): void {
-            this.loaded = true
+            this.loaded = true;
         }
     }
 </script>

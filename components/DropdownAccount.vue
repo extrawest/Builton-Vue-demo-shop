@@ -20,7 +20,7 @@
 
         clickHandler(): void {
             if (this.user) this.$store.dispatch('user/logOut');
-            else this.$router.push('/auth')
+            else this.$router.push('/auth');
         }
     }
 </script>

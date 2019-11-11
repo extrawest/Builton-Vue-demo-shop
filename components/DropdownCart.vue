@@ -37,15 +37,15 @@
     })
     export default class DropdownCart extends Vue {
         get cart(): any [] {
-            return this.$store.getters.getCart
+            return this.$store.getters.getCart;
         }
 
         get totalPrice(): number {
-            return this.cart.reduce((acc, prod) => acc + prod['final_price'], 0)
+            return this.cart.reduce((acc, prod) => acc + prod['final_price'], 0);
         }
 
         removeProduct(prod: any): void {
-            this.$store.dispatch('removeProductFromCart', prod)
+            this.$store.dispatch('removeProductFromCart', prod);
         }
     }
 </script>
