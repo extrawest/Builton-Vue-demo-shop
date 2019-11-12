@@ -33,20 +33,22 @@ export const mutations = {
   SET_PRODUCT(state, payload) {
     state.product = payload
   },
-  INIT_CART(state, payload) {
-    state.cart = payload;
-  },
   SET_RAW_PRODUCTS(state, payload) {
     state.rawProducts = payload;
   },
-  ADD_PRODUCT(state, product) {
-    state.cart.push({
-      id: product.id,
-      name: product.name,
-      final_price: product.final_price,
-      currency: product.currency,
-      brand: product.tags[0]
-    })
+  ADD_PRODUCTS(state, products) {
+    const add = product => {
+      return state.cart.push({
+        id: product.id,
+        name: product.name,
+        final_price: product.final_price,
+        currency: product.currency,
+        brand: product.brand || product.tags[0]
+      })
+    };
+
+    if (products.length) products.forEach(add);
+    else add(products);
   },
   REMOVE_PRODUCT(state, id) {
     const index = state.cart.findIndex(product => product.id === id);
@@ -63,13 +65,19 @@ export const mutations = {
 };
 
 export const actions = {
-  nuxtServerInit({commit, dispatch}) {
+  async nuxtServerInit({commit, dispatch}) {
     const email = this.$cookies.get('built-on-secret');
 
     if (!email) return;
 
-    dispatch('user/getUserByEmail', email)
-      .then(user => commit('user/SET_USER', user))
+    await dispatch('user/getUserByEmail', email)
+      .then(user => {
+        const products = user.cart ? JSON.parse(user.cart) : [];
+
+        commit('user/SET_USER', user);
+        commit('ADD_PRODUCTS', products);
+      })
+      .catch(({message}) => commit('user/SET_AUTH_ERROR', message));
   },
 
   async fetchCategories({commit}) {
@@ -77,7 +85,7 @@ export const actions = {
       urlParams: {expand: 'image', tags: 'category'}
     });
 
-    commit('SET_CATEGORIES', categories.current)
+    commit('SET_CATEGORIES', categories.current);
   },
 
   async fetchProducts({commit}, slug) {
@@ -89,13 +97,13 @@ export const actions = {
       }
     });
 
-    commit('SET_RAW_PRODUCTS', products)
+    commit('SET_RAW_PRODUCTS', products);
   },
 
   async fetchNextPage({commit, state}) {
     const products = await state.rawProducts.next();
 
-    commit('SET_RAW_PRODUCTS', products)
+    commit('SET_RAW_PRODUCTS', products);
   },
 
   async fetchProduct({commit}, id) {
@@ -106,19 +114,27 @@ export const actions = {
     commit('SET_PRODUCT', product)
   },
 
+  updateServerCart(store) {
+    const email = store.state.user.user && store.state.user.user.email;
+
+    if (!email) return;
+
+    $post('/api/updateCart', {email, cart: store.state.cart})
+  },
+
   addProductToCart({commit}, product) {
-    commit('ADD_PRODUCT', product)
+    commit('ADD_PRODUCTS', product);
   },
 
   removeProductFromCart({commit}, product) {
-    commit('REMOVE_PRODUCT', product.id)
-  },
-
-  setDeliveryAddress({ commit }, address) {
-    commit('SET_DELIVERY_ADDRESS', address)
+    commit('REMOVE_PRODUCT', product.id);
   },
 
   clearOrder({commit}) {
-    commit('CLEAR_ORDER')
+    commit('CLEAR_ORDER');
+  },
+
+  setDeliveryAddress({ commit }, address) {
+    commit('SET_DELIVERY_ADDRESS', address);
   }
 };

@@ -27,3 +27,12 @@ export function getUserByEmail(email) {
     });
   });
 }
+
+export function updateUserCart({cart, email}) {
+  return new Promise((resolve, reject) => {
+    db.run(`UPDATE users SET cart = ? WHERE email = ?`, [cart, email], function(err) {
+      if (err) reject(err.message);
+      else resolve({changes: this.changes})
+    });
+  });
+}

@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-import {getUser, addUser, getUserByEmail} from './dbHelper'
+import {getUser, addUser, getUserByEmail, updateUserCart} from './dbHelper'
 
 app.use(express.urlencoded());
 app.use(express.json());
@@ -34,13 +34,18 @@ app.post('/logout', (req, res) => {
   res.json({message: 'dobro'})
 });
 
-app.post('/getUserById', ({body}, res) => {
+app.post('/getUserByEmail', ({body}, res) => {
   const {email} = body;
   getUserByEmail(email)
     .then(user => {
-      console.log(user);
       res.json(user[0])
-    }).catch(() => res.status(400).send({message: 'Email in not correct'}));
+    }).catch(() => res.status(400).send({message: 'User email in not correct'}));
+});
+
+app.post('/updateCart', ({body}, res) => {
+  const {email, cart = []} = body;
+
+  updateUserCart({email, cart: JSON.stringify(cart)}).then(result => res.json(result))
 });
 
 module.exports = {

@@ -22,8 +22,8 @@
     export default class DefaultLayout extends Vue {
         $cookies: any;
         @Watch('$store.state.cart')
-        async onCartChange(newVal: any) {
-            this.$cookies.set('built-on-cart', newVal);
+        onCartChange() {
+            this.$store.dispatch('updateServerCart');
         }
     }
 </script>

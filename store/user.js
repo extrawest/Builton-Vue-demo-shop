@@ -32,10 +32,13 @@ export const actions = {
   },
 
   logOut({commit}) {
-    $post('/api/logout').then(() => commit('SET_USER', null))
+    $post('/api/logout').then(() => {
+      commit('SET_USER', null);
+      this.$cookies.remove('built-on-secret');
+    })
   },
 
   getUserByEmail({commit}, email) {
-    return $post('/api/getUserById', {email})
+    return $post('/api/getUserByEmail', {email})
   }
 };
