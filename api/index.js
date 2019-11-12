@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-import {getUser, addUser} from './dbHelper'
+import {getUser, addUser, getUserByEmail} from './dbHelper'
 
 app.use(express.urlencoded());
 app.use(express.json());
@@ -32,6 +32,15 @@ app.post('/login', ({body}, res) => {
 app.post('/logout', (req, res) => {
   res.cookie('built-on-secret', '');
   res.json({message: 'dobro'})
+});
+
+app.post('/getUserById', ({body}, res) => {
+  const {email} = body;
+  getUserByEmail(email)
+    .then(user => {
+      console.log(user);
+      res.json(user[0])
+    }).catch(() => res.status(400).send({message: 'Email in not correct'}));
 });
 
 module.exports = {

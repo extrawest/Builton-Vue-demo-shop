@@ -18,3 +18,12 @@ export function getUser({email, password}) {
     });
   });
 }
+
+export function getUserByEmail(email) {
+  return new Promise((resolve, reject) => {
+    db.all('SELECT * FROM users where (email==?)', [email], function (err, rows) {
+      if (err) reject();
+      else resolve(rows);
+    });
+  });
+}

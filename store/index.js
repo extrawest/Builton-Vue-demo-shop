@@ -63,10 +63,13 @@ export const mutations = {
 };
 
 export const actions = {
-  nuxtServerInit({commit}, {req}) {
+  nuxtServerInit({commit, dispatch}) {
     const email = this.$cookies.get('built-on-secret');
 
-    console.log(req)
+    if (!email) return;
+
+    dispatch('user/getUserByEmail', email)
+      .then(user => commit('user/SET_USER', user))
   },
 
   async fetchCategories({commit}) {

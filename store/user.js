@@ -33,5 +33,9 @@ export const actions = {
 
   logOut({commit}) {
     $post('/api/logout').then(() => commit('SET_USER', null))
+  },
+
+  getUserByEmail({commit}, email) {
+    return $post('/api/getUserById', {email})
   }
 };
