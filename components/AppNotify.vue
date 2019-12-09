@@ -50,7 +50,7 @@
     position: fixed;
     display: flex;
     align-items: center;
-    top: 1em;
+    top: 5em;
     right: 1em;
     min-height: 48px;
     padding: 8px;

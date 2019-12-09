@@ -12,6 +12,7 @@ export function $post(path, body) {
   return new Promise((resolve, reject) => {
       return fetch(process.env.baseUrl + path, getPayload(body))
         .then(async res => {
+          console.log(await res)
           if (res.status === 200) resolve(await res.json());
           if (res.status === 400) reject(await res.json());
         })

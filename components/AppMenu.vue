@@ -1,18 +1,11 @@
 <template>
   <div class="main-menu-container" @mouseleave="() => hideCart() || hideAccount()">
     <div class="top-header-menu-container">
-      <a class="header-box-hyperlink" href="#">
-        <span>LINK</span>
-      </a>
-      <a class="header-box-hyperlink" href="#">
-        <span>LINK</span>
-      </a>
-      <a class="header-box-hyperlink" href="#">
-        <span>LINK</span>
-      </a>
-      <a class="header-box-hyperlink" href="#">
-        <span>LINK</span>
-      </a>
+      <a class="header-box-hyperlink" href="https://builton.dev" target="_blank"><span>Website</span></a>
+
+      <a class="header-box-hyperlink" href="https://docs.builton.dev" target="_blank"><span>Docs</span></a>
+      <a class="header-box-hyperlink" href="https://dashboard.builton.dev/" target="_blank"><span>Dashboard</span></a>
+      <a class="header-box-hyperlink" href="https://github.com/BuiltonDev/builton-demo-store" target="_blank"><span>Github</span></a>
 
       <div class="header-box-hyperlink header-dropdown" @mouseenter="showCart">
         <svg width="18" height="18" viewBox="0 0 24 24">

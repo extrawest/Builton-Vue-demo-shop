@@ -1,7 +1,7 @@
 export default {
   mode: 'universal',
   env: {
-    baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+    baseUrl: process.env.BASE_URL || 'http://10.1.0.76:3000'
   },
   head: {
     title: process.env.npm_package_name || '',

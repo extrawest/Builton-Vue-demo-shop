@@ -6,18 +6,12 @@
           Quick links
         </div>
         <div class="home-footer-col-content">
-          <div>
-            <a><span>Link</span></a>
+          <div><a href="https://builton.dev" rel="noopener noreferrer" target="_blank"><span>Website</span></a></div>
+          <div><a href="https://docs.builton.dev" rel="noopener noreferrer" target="_blank"><span>Docs</span></a></div>
+          <div><a href="https://dashboard.builton.dev/" rel="noopener noreferrer" target="_blank"><span>Dashboard</span></a>
           </div>
-          <div>
-            <a><span>Link</span></a>
-          </div>
-          <div>
-            <a><span>Link</span></a>
-          </div>
-          <div>
-            <a href="#"><span>Link</span></a>
-          </div>
+          <div><a href="https://github.com/BuiltonDev/builton-demo-store" rel="noopener noreferrer"
+                  target="_blank"><span>Github</span></a></div>
         </div>
       </div>
       <div class="home-footer-col">
@@ -54,88 +48,114 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
+  import {Component, Vue} from 'vue-property-decorator'
 
-@Component
-export default class AppFooter extends Vue {}
+  @Component
+  export default class AppFooter extends Vue {
+  }
 </script>
 
 <style lang="less" scoped>
-@import url('../assets/variables');
+  @import url('../assets/variables');
 
-.footer {
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  justify-content: center;
-  padding: 120px 0 60px;
-  & > div {
-    padding: 24px 32px;
-    color: @TERTIARY_TEXT;
-    z-index: 3;
-    font-style: italic;
-    text-shadow: 2px 2px 2px rgba(255, 255, 255, 0.12);
-  }
-  &:before {
-    position: absolute;
-    content: '';
-    left: 0;
-    top: 2vh;
-    width: 102%;
-    height: 200%;
-    transform: rotate(-2deg);
-    background-color: @TERTIARY_BACKGROUND;
-    z-index: 2;
-  }
-  &:after {
-    position: absolute;
-    content: '';
-    left: -40px;
-    top: 4vh;
-    width: 102%;
-    height: 200%;
-    transform: rotate(3deg);
-    z-index: 1;
-    background-color: @ORANGE_BACKGROUND;
-  }
-}
-
-.home-footer-content {
-  display: flex;
-  flex-direction: row;
-  padding: 12px 32px;
-  flex: 1;
-
-  & .home-footer-col {
+  .footer {
+    position: relative;
+    overflow: hidden;
     display: flex;
-    flex-direction: column;
-    flex: 1;
+    flex-direction: row;
+    align-items: flex-end;
     justify-content: center;
-    align-self: flex-start;
-    color: @TERTIARY_TEXT;
-    margin: 0 24px;
+    padding: 120px 0 60px;
 
-    & .home-footer-col-title {
-      border-bottom: 2px solid @PRIMARY_BACKGROUND;
-      padding: 0 12px 6px;
-      letter-spacing: 1px;
-      margin-bottom: 12px;
+    & > div {
+      padding: 24px 32px;
+      color: @TERTIARY_TEXT;
+      z-index: 3;
+      font-style: italic;
+      text-shadow: 2px 2px 2px rgba(255, 255, 255, 0.12);
     }
 
-    & .home-footer-col-content {
-      & > div {
-        padding: 6px 12px;
-        letter-spacing: 1px;
+    &:before {
+      position: absolute;
+      content: '';
+      left: 0;
+      top: 2vh;
+      width: 102%;
+      height: 200%;
+      transform: rotate(-2deg);
+      background-color: @TERTIARY_BACKGROUND;
+      z-index: 2;
+    }
 
-        & > a {
-          text-decoration: none;
+    &:after {
+      position: absolute;
+      content: '';
+      left: -40px;
+      top: 4vh;
+      width: 102%;
+      height: 200%;
+      transform: rotate(3deg);
+      z-index: 1;
+      background-color: @ORANGE_BACKGROUND;
+    }
+  }
+
+  .home-footer-content {
+    display: flex;
+    flex-direction: row;
+    padding: 12px 32px;
+    flex: 1;
+
+    & .home-footer-col {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: center;
+      align-self: flex-start;
+      color: @TERTIARY_TEXT;
+      margin: 0 24px;
+
+      & .home-footer-col-title {
+        border-bottom: 2px solid @PRIMARY_BACKGROUND;
+        padding: 0 12px 6px;
+        letter-spacing: 1px;
+        margin-bottom: 12px;
+      }
+
+      & .home-footer-col-content {
+        & > div {
+          padding: 6px 12px;
+          letter-spacing: 1px;
+
+          & > a {
+            text-decoration: none;
+            color: @TERTIARY_TEXT;
+            -webkit-transition: all 250ms ease-in-out;
+            -moz-transition: all 250ms ease-in-out;
+            -o-transition: all 250ms ease-in-out;
+            transition: all 250ms ease-in-out;
+
+            &:hover {
+              opacity: 0.82;
+              -webkit-transition: all 250ms ease-in-out;
+              -moz-transition: all 250ms ease-in-out;
+              -o-transition: all 250ms ease-in-out;
+              transition: all 250ms ease-in-out;
+            }
+          }
+        }
+
+        & > button {
+          border: none;
+          padding: 6px 12px;
+          background-color: transparent;
           color: @TERTIARY_TEXT;
           -webkit-transition: all 250ms ease-in-out;
           -moz-transition: all 250ms ease-in-out;
           -o-transition: all 250ms ease-in-out;
           transition: all 250ms ease-in-out;
+          letter-spacing: 1px;
+          cursor: pointer;
 
           &:hover {
             opacity: 0.82;
@@ -146,50 +166,28 @@ export default class AppFooter extends Vue {}
           }
         }
       }
+    }
+  }
 
-      & > button {
-        border: none;
-        padding: 6px 12px;
-        background-color: transparent;
-        color: @TERTIARY_TEXT;
-        -webkit-transition: all 250ms ease-in-out;
-        -moz-transition: all 250ms ease-in-out;
-        -o-transition: all 250ms ease-in-out;
-        transition: all 250ms ease-in-out;
-        letter-spacing: 1px;
-        cursor: pointer;
+  @media all and (max-width: 720px) {
+    .home-footer-content {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin: 0 36px;
 
-        &:hover {
-          opacity: 0.82;
-          -webkit-transition: all 250ms ease-in-out;
-          -moz-transition: all 250ms ease-in-out;
-          -o-transition: all 250ms ease-in-out;
-          transition: all 250ms ease-in-out;
+      & .home-footer-col {
+        align-self: stretch;
+        margin: 24px 0;
+
+        & .home-footer-col-title {
+          text-align: center;
+        }
+
+        & .home-footer-col-content {
+          text-align: center;
         }
       }
     }
   }
-}
-
-@media all and (max-width: 720px) {
-  .home-footer-content {
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 0 36px;
-
-    & .home-footer-col {
-      align-self: stretch;
-      margin: 24px 0;
-
-      & .home-footer-col-title {
-        text-align: center;
-      }
-
-      & .home-footer-col-content {
-        text-align: center;
-      }
-    }
-  }
-}
 </style>

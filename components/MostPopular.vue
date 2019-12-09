@@ -3,7 +3,7 @@
     <div class="home-popular-products-title-container">
       <div class="section-header-container sub">Most popular products</div>
     </div>
-    <div class="carousel"></div>
+    <div class="carousel">Nothing to recommend</div>
   </div>
 </template>
 
@@ -33,18 +33,13 @@
 
     & .carousel {
       flex-grow: 1;
-      background-image:
-        repeating-linear-gradient(
-          45deg,
-          rgba(251, 107, 64, 0.1),
-          rgba(251, 107, 64, 0.1) 10px,
-          transparent 10px,
-          transparent 20px,
-          rgba(170, 154, 240, 0.2) 20px,
-          rgba(170, 154, 240, 0.2) 30px,
-          transparent 30px,
-          transparent 40px
-        );
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8d8d8d;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-size: .92rem;
     }
   }
 
