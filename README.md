@@ -1,6 +1,6 @@
-# builton
+# Builton-Vue-demo-shop
 
-> My awesome Nuxt.js project
+> Awesome Nuxt.js and Builton project
 
 ## Build Setup
 
