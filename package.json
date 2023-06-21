@@ -15,7 +15,7 @@
     "@builton/core-sdk": "^4.1.2",
     "cookie-universal-nuxt": "^2.0.18",
     "express": "^4.17.1",
-    "nuxt": "^2.0.0",
+    "nuxt": "^3.4.3",
     "password-hash": "^1.2.2",
     "sqlite3": "^4.1.0",
     "vue-property-decorator": "^8.3.0"
